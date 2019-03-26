@@ -27,7 +27,6 @@ void DosageData::FlushPartialVcf(int NovcfParts)
     PartialVcfFileName += MyAllVariables->myOutFormat.savOutput ? ".sav" : ".vcf.gz";
     PartialMetaVcfFileName+=(".chunk."+(string)(strs1.str())+ ".empiricalDose.part."+ (string)(strs.str())+".vcf.gz");
 
-    //IFILE vcfdosepartial = ifopen(PartialVcfFileName.c_str(), bgzf_mode, InputFile::BGZF);
     //IFILE vcfLoodosepartial = NULL;
     IFILE vcfdosepartial = nullptr;
     IFILE vcfLoodosepartial = nullptr;
@@ -46,7 +45,7 @@ void DosageData::FlushPartialVcf(int NovcfParts)
     }
     else
     {
-        vcfdosepartial = ifopen(PartialVcfFileName.c_str(), "wb", InputFile::BGZF);
+        vcfdosepartial = ifopen(PartialVcfFileName.c_str(), bgzf_mode, InputFile::BGZF);
     }
 
     if(MyAllVariables->myOutFormat.meta)
