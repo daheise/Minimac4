@@ -1,1 +1,2 @@
 daheise/libStatGen@parallel-bgzip-cram --cmake dep/libstatgen.cmake
+statgen/savvy@develop
