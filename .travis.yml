@@ -8,5 +8,6 @@ install:
   - pip install cget
 
 build:
+  - echo "Hello world"
   - cd Minimac4
   - bash install.sh
