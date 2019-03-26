@@ -15,12 +15,24 @@ install:
   - make
   - sudo make install
   - popd
+  - bash install.sh
   - wget https://github.com/daheise/Eagle/archive/parallel-bgz.zip
   - unzip parallel-bgz.zip
   - pushd Eagle-parallel-bgz/src
   - make
   - popd
-  - bash install.sh
+  - pushd Eagle-parallel-bgz
+  - ln -s src/eagle eagle
+  - popd
+  - pushd Eagle-parallel-bgz/tables
+  - rm *.gz
+  - wget  https://data.broadinstitute.org/alkesgroup/Eagle/downloads/tables/genetic_map_hg19_withX.txt.gz
+  - popd
+  #- wget ftp://share.sph.umich.edu/minimac3/G1K_P3_M3VCF_FILES_WITH_ESTIMATES.tar.gz
+  #- tar -xvzf G1K_P3_M3VCF_FILES_WITH_ESTIMATES.tar.gz 21.1000g.Phase3.v5.With.Parameter.Estimates.m3vcf.gz
+  #- rm G1K_P3_M3VCF_FILES_WITH_ESTIMATES.tar.gz
 
 script:
   - release-build/minimac4 --noPhoneHome --help || if [ $? -eq 255 ]; then echo "Expected non-zero exit code"; fi
+  - pushd Eagle-parallel-bgz/example && bash run_example_vcf.sh && popd
+  - release-build/minimac4 --noPhoneHome --refHaps ./21.1000g.Phase3.v5.With.Parameter.Estimates.m3vcf.gz --haps ./Eagle/example/phased.vcf.gz --minRatio 0.01  --prefix test --cpus 4 --vcfBuffer 200
