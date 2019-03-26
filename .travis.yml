@@ -1,0 +1,12 @@
+language: cpp
+
+complier:
+  - gcc
+
+install:
+  - sudo apt-get install cmake python-pip python-dev
+  - pip install cget
+
+build:
+  - cd Minimac4
+  - bash install.sh
