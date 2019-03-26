@@ -4,6 +4,9 @@ language: cpp
 complier:
   - gcc
 
+#env:
+#  - LD_LIBRARY_PATH=/usr/local/lib
+
 install:
   - sudo apt-get install cmake python-pip python-dev bzip2 libboost-all-dev libopenblas-dev
   - sudo pip install --upgrade pip
@@ -11,9 +14,7 @@ install:
   - wget https://github.com/samtools/htslib/releases/download/1.9/htslib-1.9.tar.bz2
   - tar xvjf htslib-1.9.tar.bz2
   - pushd htslib-1.9
-  - ./configure
-  - make
-  - sudo make install
+  - ./configure --prefix=/usr && make && sudo make install
   - popd
   - bash install.sh
   - wget https://github.com/daheise/Eagle/archive/parallel-bgz.zip
