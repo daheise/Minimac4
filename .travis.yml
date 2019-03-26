@@ -23,9 +23,9 @@ install:
   - rm *.gz
   - wget  https://data.broadinstitute.org/alkesgroup/Eagle/downloads/tables/genetic_map_hg19_withX.txt.gz
   - popd
-  #- wget ftp://share.sph.umich.edu/minimac3/G1K_P3_M3VCF_FILES_WITH_ESTIMATES.tar.gz
-  #- tar -xvzf G1K_P3_M3VCF_FILES_WITH_ESTIMATES.tar.gz 21.1000g.Phase3.v5.With.Parameter.Estimates.m3vcf.gz
-  #- rm G1K_P3_M3VCF_FILES_WITH_ESTIMATES.tar.gz
+  - wget ftp://share.sph.umich.edu/minimac3/G1K_P3_M3VCF_FILES_WITH_ESTIMATES.tar.gz
+  - tar -xvzf G1K_P3_M3VCF_FILES_WITH_ESTIMATES.tar.gz 21.1000g.Phase3.v5.With.Parameter.Estimates.m3vcf.gz
+  - rm G1K_P3_M3VCF_FILES_WITH_ESTIMATES.tar.gz
 
 script:
   - release-build/minimac4 --noPhoneHome --help || if [ $? -eq 255 ]; then echo "Expected non-zero exit code"; fi
