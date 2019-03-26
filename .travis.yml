@@ -8,6 +8,6 @@ install:
   - sudo pip install --upgrade pip
   - pip install --user cget
 
-build:
+script:
   - cd Minimac4
   - bash install.sh
