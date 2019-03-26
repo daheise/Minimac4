@@ -4,7 +4,7 @@ complier:
   - gcc
 
 install:
-  - sudo apt-get install cmake python-pip python-dev bzip
+  - sudo apt-get install cmake python-pip python-dev bzip2
   - sudo pip install --upgrade pip
   - pip install --user cget
   - wget https://github.com/samtools/htslib/releases/download/1.9/htslib-1.9.tar.bz2
