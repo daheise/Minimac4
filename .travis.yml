@@ -5,6 +5,7 @@ complier:
 
 install:
   - sudo apt-get install cmake python-pip python-dev
+  - pip install --upgrade pip
   - pip install cget
 
 build:
