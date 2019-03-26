@@ -23,4 +23,4 @@ install:
   - bash install.sh
 
 script:
-  - release-build/minimac4 --noPhoneHome --help
+  - release-build/minimac4 --noPhoneHome --help || if [ $? -eq 255 ]; then echo "Expected non-zero exit code"; fi
