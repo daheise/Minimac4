@@ -30,6 +30,7 @@ install:
 script:
   - release-build/minimac4 --noPhoneHome --help || if [ $? -eq 255 ]; then echo "Expected non-zero exit code"; fi
   - pushd Eagle-parallel-bgz/example && bash run_example_vcf.sh && popd
+  - /usr/bin/time -v release-build/minimac4 --noPhoneHome --refHaps ./21.1000g.Phase3.v5.With.Parameter.Estimates.m3vcf.gz --haps ./Eagle-parallel-bgz/example/phased.vcf.gz --minRatio 0.01  --prefix test --cpus 2 --vcfBuffer 200 --format GT,DS,HDS,GP
   - /usr/bin/time -v release-build/minimac4 --noPhoneHome --refHaps ./21.1000g.Phase3.v5.With.Parameter.Estimates.m3vcf.gz --haps ./Eagle-parallel-bgz/example/phased.vcf.gz --minRatio 0.01  --prefix test --cpus 2 --vcfBuffer 200 --format GT
   - /usr/bin/time -v release-build/minimac4 --noPhoneHome --refHaps ./21.1000g.Phase3.v5.With.Parameter.Estimates.m3vcf.gz --haps ./Eagle-parallel-bgz/example/phased.vcf.gz --minRatio 0.01  --prefix test --cpus 2 --vcfBuffer 200 --sav
   - ls -lh *.dose*
