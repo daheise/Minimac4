@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.2)
 project(minimac4 VERSION 1.0.1)
+include(CMakePackageConfigHelpers)
 
 set(CMAKE_CXX_STANDARD 11)
 execute_process(COMMAND date OUTPUT_VARIABLE DATE OUTPUT_STRIP_TRAILING_WHITESPACE)
@@ -13,9 +14,9 @@ if (OPENMP_FOUND)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
 endif()
 
+set(CMAKE_FIND_LIBRARY_SUFFIXES ".a;${CMAKE_FIND_LIBRARY_SUFFIXES}")
 
-
-find_package(ZLIB REQUIRED)
+find_package(savvy REQUIRED)
 find_library(STATGEN_LIBRARY StatGen)
 find_library(HTS_LIBRARY hts)
 
@@ -42,6 +43,16 @@ add_executable(minimac4
         src/Estimation.cpp
         src/Estimation.h)
 
-target_link_libraries(minimac4 ${STATGEN_LIBRARY} ${HTS_LIBRARY} ${ZLIB_LIBRARIES})
+target_link_libraries(minimac4 ${STATGEN_LIBRARY} ${HTS_LIBRARY} ${ZLIB_LIBRARIES} savvy)
+add_custom_target(manuals
+                  COMMAND help2man --output "${CMAKE_BINARY_DIR}/minimac4.1" "${CMAKE_BINARY_DIR}/minimac4")
 
 install(TARGETS minimac4 RUNTIME DESTINATION bin)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/minimac4.1
+        DESTINATION share/man/man1
+        OPTIONAL)
+
+set(CPACK_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
+set(CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})
+set(CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH})
+include(CPack)
