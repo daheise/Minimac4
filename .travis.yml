@@ -31,9 +31,13 @@ script:
   - release-build/minimac4 --noPhoneHome --help || if [ $? -eq 255 ]; then echo "Expected non-zero exit code"; fi
   - pushd Eagle-parallel-bgz/example && bash run_example_vcf.sh && popd
   - /usr/bin/time -v release-build/minimac4 --noPhoneHome --refHaps ./21.1000g.Phase3.v5.With.Parameter.Estimates.m3vcf.gz --haps ./Eagle-parallel-bgz/example/phased.vcf.gz --minRatio 0.01  --prefix test-all --cpus 2 --vcfBuffer 200 --format GT,DS,HDS,GP
-  - /usr/bin/time -v release-build/minimac4 --noPhoneHome --refHaps ./21.1000g.Phase3.v5.With.Parameter.Estimates.m3vcf.gz --haps ./Eagle-parallel-bgz/example/phased.vcf.gz --minRatio 0.01  --prefix test-ds --cpus 2 --vcfBuffer 200 --format DS
+  - /usr/bin/time -v release-build/minimac4 --noPhoneHome --refHaps ./21.1000g.Phase3.v5.With.Parameter.Estimates.m3vcf.gz --haps ./Eagle-parallel-bgz/example/phased.vcf.gz --minRatio 0.01  --prefix test-ds --cpus 2 --vcfBuffer 200 --format DS    
   - /usr/bin/time -v release-build/minimac4 --noPhoneHome --refHaps ./21.1000g.Phase3.v5.With.Parameter.Estimates.m3vcf.gz --haps ./Eagle-parallel-bgz/example/phased.vcf.gz --minRatio 0.01  --prefix test-gp --cpus 2 --vcfBuffer 200 --format GP
   - /usr/bin/time -v release-build/minimac4 --noPhoneHome --refHaps ./21.1000g.Phase3.v5.With.Parameter.Estimates.m3vcf.gz --haps ./Eagle-parallel-bgz/example/phased.vcf.gz --minRatio 0.01  --prefix test-gt --cpus 2 --vcfBuffer 200 --format GT
   - /usr/bin/time -v release-build/minimac4 --noPhoneHome --refHaps ./21.1000g.Phase3.v5.With.Parameter.Estimates.m3vcf.gz --haps ./Eagle-parallel-bgz/example/phased.vcf.gz --minRatio 0.01  --prefix test-hds --cpus 2 --vcfBuffer 200 --format HDS
   - /usr/bin/time -v release-build/minimac4 --noPhoneHome --refHaps ./21.1000g.Phase3.v5.With.Parameter.Estimates.m3vcf.gz --haps ./Eagle-parallel-bgz/example/phased.vcf.gz --minRatio 0.01  --prefix test-sav --cpus 2 --vcfBuffer 200 --sav
+  - /usr/bin/time -v cget/bin/sav export -d DS  -f vcf test.dose.sav | bgzip -@2 -c > test-ds.dose.vcf.bgz
+  - /usr/bin/time -v cget/bin/sav export -d GP  -f vcf test.dose.sav | bgzip -@2 -c > test-gp.dose.vcf.bgz
+  - /usr/bin/time -v cget/bin/sav export -d GT  -f vcf test.dose.sav | bgzip -@2 -c > test-gt.dose.vcf.bgz
+  - /usr/bin/time -v cget/bin/sav export -d HDS -f vcf test.dose.sav | bgzip -@2 -c > test-hds.dose.vcf.bgz
   - ls -lh *.dose*
